@@ -561,6 +561,9 @@ $string['prerequisites'] = 'Prerequisites';
 $string['courses'] = 'courses';
 $string['complete'] = 'complete';
 $string['noprogramsfound'] = 'Try adjusting your search or check back later for new programs.';
+$string['clearsearch'] = 'Clear search';
+$string['gridview'] = 'Grid view';
+$string['listview'] = 'List view';
 
 // Program detail page strings.
 $string['overview'] = 'Overview';

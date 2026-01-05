@@ -56,7 +56,7 @@
                            value="{{searchquery}}"
                            aria-label="{{#str}}search{{/str}}">
                     {{#searchquery}}
-                    <a href="{{clearurl}}" class="search-clear" aria-label="Clear search">
+                    <a href="{{clearurl}}" class="search-clear" aria-label="{{#str}}clearsearch, enrol_programs{{/str}}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M18 6 6 18"></path>
                             <path d="m6 6 12 12"></path>
@@ -75,7 +75,7 @@
                         class="view-btn"
                         :class="{ 'active': view === 'grid' }"
                         @click="setView('grid')"
-                        aria-label="Grid view">
+                        aria-label="{{#str}}gridview, enrol_programs{{/str}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect width="7" height="7" x="3" y="3" rx="1"></rect>
                         <rect width="7" height="7" x="14" y="3" rx="1"></rect>
@@ -87,7 +87,7 @@
                         class="view-btn"
                         :class="{ 'active': view === 'list' }"
                         @click="setView('list')"
-                        aria-label="List view">
+                        aria-label="{{#str}}listview, enrol_programs{{/str}}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="3" x2="21" y1="6" y2="6"></line>
                         <line x1="3" x2="21" y1="12" y2="12"></line>
@@ -133,7 +133,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
                             </svg>
-                            {{coursecount}} {{#str}}courses{{/str}}
+                            {{coursecount}} {{#str}}courses, enrol_programs{{/str}}
                         </span>
                         {{#hasrequirements}}
                         <span class="meta-item prereq">
@@ -150,7 +150,7 @@
                         <div class="pc-progress-bar">
                             <div class="pc-progress-fill" style="width: {{progresspercent}}%"></div>
                         </div>
-                        <span class="pc-progress-text">{{progresspercent}}% {{#str}}complete{{/str}}</span>
+                        <span class="pc-progress-text">{{progresspercent}}% {{#str}}complete, enrol_programs{{/str}}</span>
                     </div>
                     {{/isallocated}}
                 </div>
@@ -203,7 +203,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
                             </svg>
-                            {{coursecount}} {{#str}}courses{{/str}}
+                            {{coursecount}} {{#str}}courses, enrol_programs{{/str}}
                         </span>
                         {{#hasrequirements}}
                         <span class="meta-item prereq">
