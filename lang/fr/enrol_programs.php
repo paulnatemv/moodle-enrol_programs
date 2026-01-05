@@ -554,3 +554,41 @@ $string['rb_type_program_customfields'] = 'Champs de programme personnalisés';
 $string['rb_user'] = 'L\'utilisateur';
 $string['rb_viewprogram'] = 'Afficher le programme';
 $string['rb_visiblecohorts'] = 'Promotions avec visibilité';
+
+// Custom UI strings - Catalogue.
+$string['enrolled'] = 'Inscrit';
+$string['prerequisites'] = 'Prérequis';
+$string['courses'] = 'cours';
+$string['complete'] = 'terminé';
+$string['noprogramsfound'] = 'Essayez d\'ajuster votre recherche ou revenez plus tard pour de nouveaux programmes.';
+$string['clearsearch'] = 'Effacer la recherche';
+$string['gridview'] = 'Vue en grille';
+$string['listview'] = 'Vue en liste';
+
+// Custom UI strings - Program detail page.
+$string['overview'] = 'Aperçu';
+$string['programcourses'] = 'Cours';
+$string['programdetails'] = 'Détails du programme';
+$string['notstarted'] = 'Non commencé';
+$string['nocourses'] = 'Aucun cours dans ce programme.';
+$string['completed'] = 'Terminé';
+$string['review'] = 'Revoir';
+$string['continue'] = 'Continuer';
+$string['start'] = 'Commencer';
+$string['description'] = 'Description';
+$string['overallprogress'] = 'Progression globale';
+$string['completedon'] = 'Terminé le';
+$string['myallocation'] = 'Mon inscription';
+
+// Custom UI strings - My programs listing page.
+$string['myprogramsdesc'] = 'Suivez votre progression et continuez à apprendre';
+$string['browsecatalogue'] = 'Parcourir le catalogue';
+$string['totalprograms'] = 'Total des programmes';
+$string['completedprograms'] = 'Terminés';
+$string['inprogressprograms'] = 'En cours';
+$string['due'] = 'Échéance';
+$string['started'] = 'Commencé';
+$string['reviewprogram'] = 'Revoir le programme';
+$string['continueprogram'] = 'Continuer à apprendre';
+$string['noprogramsyet'] = 'Pas encore de programmes';
+$string['noprogramsyetdesc'] = 'Vous n\'êtes inscrit à aucun programme. Parcourez notre catalogue pour commencer.';

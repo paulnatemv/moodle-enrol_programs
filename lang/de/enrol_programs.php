@@ -554,3 +554,41 @@ $string['rb_type_program_customfields'] = 'Nutzer/innendefinierte Programmfelder
 $string['rb_user'] = 'Nutzer/in';
 $string['rb_viewprogram'] = 'Programm anzeigen';
 $string['rb_visiblecohorts'] = 'Globale Gruppen mit Sichtbarkeit';
+
+// Custom UI strings - Catalogue.
+$string['enrolled'] = 'Eingeschrieben';
+$string['prerequisites'] = 'Voraussetzungen';
+$string['courses'] = 'Kurse';
+$string['complete'] = 'abgeschlossen';
+$string['noprogramsfound'] = 'Passen Sie Ihre Suche an oder schauen Sie später nach neuen Programmen.';
+$string['clearsearch'] = 'Suche löschen';
+$string['gridview'] = 'Rasteransicht';
+$string['listview'] = 'Listenansicht';
+
+// Custom UI strings - Program detail page.
+$string['overview'] = 'Übersicht';
+$string['programcourses'] = 'Kurse';
+$string['programdetails'] = 'Programmdetails';
+$string['notstarted'] = 'Nicht begonnen';
+$string['nocourses'] = 'Keine Kurse in diesem Programm.';
+$string['completed'] = 'Abgeschlossen';
+$string['review'] = 'Überprüfen';
+$string['continue'] = 'Fortsetzen';
+$string['start'] = 'Starten';
+$string['description'] = 'Beschreibung';
+$string['overallprogress'] = 'Gesamtfortschritt';
+$string['completedon'] = 'Abgeschlossen am';
+$string['myallocation'] = 'Meine Einschreibung';
+
+// Custom UI strings - My programs listing page.
+$string['myprogramsdesc'] = 'Verfolgen Sie Ihren Fortschritt und lernen Sie weiter';
+$string['browsecatalogue'] = 'Katalog durchsuchen';
+$string['totalprograms'] = 'Programme gesamt';
+$string['completedprograms'] = 'Abgeschlossen';
+$string['inprogressprograms'] = 'In Bearbeitung';
+$string['due'] = 'Fällig';
+$string['started'] = 'Begonnen';
+$string['reviewprogram'] = 'Programm überprüfen';
+$string['continueprogram'] = 'Weiter lernen';
+$string['noprogramsyet'] = 'Noch keine Programme';
+$string['noprogramsyetdesc'] = 'Sie sind noch in keinem Programm eingeschrieben. Durchsuchen Sie unseren Katalog, um zu beginnen.';
