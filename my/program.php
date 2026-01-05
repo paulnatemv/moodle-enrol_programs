@@ -112,10 +112,7 @@ echo $OUTPUT->header();
 $event = \enrol_programs\event\program_viewed::create_from_program($program);
 $event->trigger();
 
-echo $myouput->render_program($program);
-
-echo $myouput->render_user_allocation($program, $source, $allocation);
-
-echo $myouput->render_user_progress($program, $allocation);
+// Use the new beautiful template
+echo $myouput->render_my_program_page($program, $source, $allocation);
 
 echo $OUTPUT->footer();

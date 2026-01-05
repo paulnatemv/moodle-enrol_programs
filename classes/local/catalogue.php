@@ -142,106 +142,129 @@ final class catalogue {
     public function render_programs(): string {
         global $OUTPUT, $CFG, $DB, $USER, $PAGE;
 
-        $catalogueoutput = $PAGE->get_renderer('enrol_programs', 'catalogue');
+        // Add Alpine.js for view switching (defer loading)
+        $PAGE->requires->js_amd_inline("
+            require([], function() {
+                if (!window.Alpine) {
+                    var script = document.createElement('script');
+                    script.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js';
+                    script.defer = true;
+                    document.head.appendChild(script);
+                }
+            });
+        ");
 
         $totalcount = $this->count_programs();
         $programs = $this->get_programs();
-
-        if (!$totalcount && !$this->is_filtering()) {
-            return get_string('errornoprograms', 'enrol_programs');
-        }
-
-        $programicon = $OUTPUT->pix_icon('program', '', 'enrol_programs');
         $currenturl = $this->get_current_url();
 
-        $result = '';
-
-        $data = [
-            'action' => new \moodle_url('/enrol/programs/catalogue/index.php'),
-            'inputname' => 'searchtext',
-            'searchstring' => get_string('search', 'cohort'),
-            'query' => $this->searchtext,
-            'hiddenfields' => $this->get_hidden_search_fields(),
-            'extraclasses' => 'mb-3'
-        ];
-        $result .= $OUTPUT->render_from_template('core/search_input', $data);
-
-        if (!$totalcount) {
-            $result .= get_string('errornoprograms', 'enrol_programs');
-            return $result;
-        }
-
-        $result .= $OUTPUT->paging_bar($totalcount, $this->page, $this->perpage, $currenturl);
-        $result .= '<div class="programs">';
-        $i = 0;
-        $count = count($programs);
+        // Prepare programs data for template
+        $programsdata = [];
         foreach ($programs as $program) {
             $allocation = $DB->get_record('enrol_programs_allocations', ['programid' => $program->id, 'userid' => $USER->id, 'archived' => 0]);
             $context = \context::instance_by_id($program->contextid);
-            $classes = ['programbox', 'clearfix'];
-            if ($i % 2 === 0) {
-                $classes[] = 'odd';
-            } else {
-                $classes[] = 'even';
-            }
-            if ($i == 0) {
-                $classes[] = 'first';
-            }
-            if ($i == $count - 1) {
-                $classes[] = 'last';
-            }
-            $classes = implode(' ', $classes);
-            $fullname = format_string($program->fullname);
+
+            // Get URL
             if ($allocation) {
                 $url = new \moodle_url('/enrol/programs/my/program.php', ['id' => $program->id]);
             } else {
                 $url = new \moodle_url('/enrol/programs/catalogue/program.php', ['id' => $program->id]);
             }
-            $url = $url->out(true);
 
-            $description = file_rewrite_pluginfile_urls($program->description, 'pluginfile.php', $context->id, 'enrol_programs', 'description', $program->id);
-            $description = format_text($description, $program->descriptionformat, ['context' => $context]);
-
-            $tagsdiv = '';
-            if ($CFG->usetags) {
-                $tags = \core_tag_tag::get_item_tags('enrol_programs', 'program', $program->id);
-                if ($tags) {
-                    $tagsdiv = $OUTPUT->tag_list($tags, '', 'program-tags');
-                }
+            // Get description and create short version
+            $description = \file_rewrite_pluginfile_urls($program->description, 'pluginfile.php', $context->id, 'enrol_programs', 'description', $program->id);
+            $descriptiontext = strip_tags(\format_text($description, $program->descriptionformat, ['context' => $context]));
+            $shortdescription = \core_text::substr($descriptiontext, 0, 120);
+            if (\core_text::strlen($descriptiontext) > 120) {
+                $shortdescription .= '...';
             }
 
-            $allocationinfo = '';
-            if ($allocation) {
-                $allocationinfo = allocation::get_completion_status_html($program, $allocation);
-            }
-
-            $programimage = '';
+            // Get image URL
+            $imageurl = '';
             $presentation = (array)json_decode($program->presentationjson);
             if (!empty($presentation['image'])) {
                 $imageurl = \moodle_url::make_file_url("$CFG->wwwroot/pluginfile.php",
                     '/' . $context->id . '/enrol_programs/image/' . $program->id . '/'. $presentation['image'], false);
-                $programimage = '<div class="float-end programimage">' . \html_writer::img($imageurl, '') . '</div>';
             }
 
-            $result .= <<<EOT
-<div class="$classes" data-programid="$program->id">
-  $programimage
-  <div class="info">
-    <h3 class="programname"><a class="aalink" href="$url">{$programicon}{$fullname}<a/></h3>
-  </div>$tagsdiv
-  <div class="content">
-    <div class="summary">$description</div>
-  </div>
-  <div class="allocation">$allocationinfo</div>
-</div>
-EOT;
-            $i++;
+            // Get course count
+            $coursecount = $DB->count_records_sql(
+                "SELECT COUNT(*) FROM {enrol_programs_items} WHERE programid = ? AND courseid IS NOT NULL",
+                [$program->id]
+            );
+
+            // Get tags
+            $taglist = [];
+            if ($CFG->usetags) {
+                $tags = \core_tag_tag::get_item_tags('enrol_programs', 'program', $program->id);
+                foreach ($tags as $tag) {
+                    $taglist[] = ['name' => $tag->get_display_name()];
+                }
+            }
+
+            // Calculate progress if allocated
+            $progresspercent = 0;
+            if ($allocation) {
+                // Count total course items and completed items
+                $totalitems = $DB->count_records_sql(
+                    "SELECT COUNT(*) FROM {enrol_programs_items} WHERE programid = ? AND courseid IS NOT NULL",
+                    [$program->id]
+                );
+                if ($totalitems > 0) {
+                    $completeditems = $DB->count_records_sql(
+                        "SELECT COUNT(*) FROM {enrol_programs_completions} pc
+                         JOIN {enrol_programs_items} pi ON pi.id = pc.itemid
+                         WHERE pi.programid = ? AND pi.courseid IS NOT NULL AND pc.allocationid = ?",
+                        [$program->id, $allocation->id]
+                    );
+                    $progresspercent = (int)round(($completeditems / $totalitems) * 100);
+                }
+            }
+
+            // Check if has prerequisites (simple check - description contains "prerequisite" or link to other program)
+            $hasrequirements = (stripos($descriptiontext, 'prerequisite') !== false) ||
+                              (stripos($descriptiontext, 'requirement') !== false);
+
+            $programsdata[] = [
+                'id' => $program->id,
+                'fullname' => \format_string($program->fullname),
+                'shortdescription' => $shortdescription,
+                'url' => $url->out(false),
+                'imageurl' => $imageurl,
+                'coursecount' => $coursecount,
+                'isallocated' => !empty($allocation),
+                'progresspercent' => $progresspercent,
+                'hasrequirements' => $hasrequirements,
+                'tags' => !empty($taglist),
+                'taglist' => $taglist,
+            ];
         }
 
-        $result .= '</div>';
-        $result .= $OUTPUT->paging_bar($totalcount, $this->page, $this->perpage, $currenturl);
+        // Prepare hidden fields for search
+        $hiddenfields = [];
+        foreach ($this->get_hidden_search_fields() as $name => $value) {
+            $hiddenfields[] = ['name' => $name, 'value' => $value];
+        }
 
-        return $result;
+        // Build clear URL
+        $clearurl = new \moodle_url('/enrol/programs/catalogue/index.php');
+
+        // Render paging bar
+        $paging = $OUTPUT->paging_bar($totalcount, $this->page, $this->perpage, $currenturl);
+
+        // Prepare template data
+        $templatedata = [
+            'programs' => $programsdata,
+            'hasprograms' => !empty($programsdata),
+            'totalcount' => $totalcount,
+            'searchaction' => (new \moodle_url('/enrol/programs/catalogue/index.php'))->out(false),
+            'searchquery' => $this->searchtext ?? '',
+            'hiddenfields' => $hiddenfields,
+            'clearurl' => $clearurl->out(false),
+            'paging' => $paging,
+        ];
+
+        return $OUTPUT->render_from_template('enrol_programs/catalogue', $templatedata);
     }
 
     /**

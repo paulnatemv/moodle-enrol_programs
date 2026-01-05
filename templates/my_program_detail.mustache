@@ -1,0 +1,271 @@
+{{!
+    @template enrol_programs/my_program_detail
+
+    Beautiful "My Program" detail page with real completion data.
+
+    Context variables required for this template:
+    * program - Program object with fullname, description, etc.
+    * allocation - User's allocation data
+    * courses - Array of course objects with real completion status
+}}
+
+<div class="program-detail my-program-detail" x-data="{ activeTab: 'courses' }">
+    {{! Program Header }}
+    <div class="program-header">
+        <div class="program-header-content">
+            <div class="program-header-image">
+                {{#imageurl}}
+                <img src="{{imageurl}}" alt="">
+                {{/imageurl}}
+                {{^imageurl}}
+                <div class="program-header-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        <path d="m9 9.5 2 2 4-4"></path>
+                    </svg>
+                </div>
+                {{/imageurl}}
+            </div>
+
+            <div class="program-header-info">
+                <nav class="program-breadcrumb">
+                    <a href="{{myprogramsurl}}">{{#str}}myprograms, enrol_programs{{/str}}</a>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                    <span>{{programname}}</span>
+                </nav>
+
+                <h1 class="program-title">{{programname}}</h1>
+
+                <div class="program-meta-row">
+                    <div class="program-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                        <span>{{coursecount}} {{#str}}courses, enrol_programs{{/str}}</span>
+                    </div>
+                    <div class="program-stat progress-stat">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <span>{{completedcount}}/{{coursecount}} {{#str}}completed, enrol_programs{{/str}}</span>
+                    </div>
+                </div>
+
+                {{#tags}}
+                <div class="program-tags-row">
+                    {{#taglist}}
+                    <span class="program-tag">{{name}}</span>
+                    {{/taglist}}
+                </div>
+                {{/tags}}
+
+                <div class="program-status-badge {{statusclass}}">
+                    {{{statushtml}}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{! Tab Navigation }}
+    <div class="program-tabs">
+        <button type="button"
+                class="program-tab"
+                :class="{ 'active': activeTab === 'courses' }"
+                @click="activeTab = 'courses'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+            </svg>
+            {{#str}}programcourses, enrol_programs{{/str}}
+            <span class="tab-badge">{{completedcount}}/{{coursecount}}</span>
+        </button>
+        <button type="button"
+                class="program-tab"
+                :class="{ 'active': activeTab === 'overview' }"
+                @click="activeTab = 'overview'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+            </svg>
+            {{#str}}overview, enrol_programs{{/str}}
+        </button>
+        <button type="button"
+                class="program-tab"
+                :class="{ 'active': activeTab === 'details' }"
+                @click="activeTab = 'details'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                <line x1="16" x2="16" y1="2" y2="6"></line>
+                <line x1="8" x2="8" y1="2" y2="6"></line>
+                <line x1="3" x2="21" y1="10" y2="10"></line>
+            </svg>
+            {{#str}}programdetails, enrol_programs{{/str}}
+        </button>
+    </div>
+
+    {{! Courses Tab }}
+    <div class="program-content" x-show="activeTab === 'courses'">
+        {{#overallprogress}}
+        <div class="overall-progress-bar">
+            <div class="progress-label">
+                <span>{{#str}}overallprogress, enrol_programs{{/str}}</span>
+                <span class="progress-percent">{{overallpercent}}%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width: {{overallpercent}}%"></div>
+            </div>
+        </div>
+        {{/overallprogress}}
+
+        <div class="courses-list">
+            {{#courses}}
+            <div class="course-item {{completionclass}}">
+                <div class="course-status">
+                    {{#iscompleted}}
+                    <div class="status-icon completed" title="{{#str}}completed, enrol_programs{{/str}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6 9 17l-5-5"></path>
+                        </svg>
+                    </div>
+                    {{/iscompleted}}
+                    {{#isinprogress}}
+                    <div class="status-icon inprogress" title="{{progresspercent}}% {{#str}}complete, enrol_programs{{/str}}">
+                        <svg class="progress-circle" viewBox="0 0 36 36">
+                            <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            <path class="circle-progress" stroke-dasharray="{{progresspercent}}, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        </svg>
+                        <span class="progress-text">{{progresspercent}}%</span>
+                    </div>
+                    {{/isinprogress}}
+                    {{#isnotstarted}}
+                    <div class="status-icon notstarted" title="{{#str}}notstarted, enrol_programs{{/str}}">
+                        <span class="status-number">{{index}}</span>
+                    </div>
+                    {{/isnotstarted}}
+                </div>
+
+                <div class="course-info">
+                    <h3 class="course-name">
+                        {{#courseurl}}
+                        <a href="{{courseurl}}">{{coursename}}</a>
+                        {{/courseurl}}
+                        {{^courseurl}}
+                        {{coursename}}
+                        {{/courseurl}}
+                    </h3>
+                    {{#completiondate}}
+                    <p class="course-completion-date">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6 9 17l-5-5"></path>
+                        </svg>
+                        {{#str}}completedon, enrol_programs{{/str}} {{completiondate}}
+                    </p>
+                    {{/completiondate}}
+                </div>
+
+                <div class="course-action">
+                    {{#iscompleted}}
+                    <span class="completion-badge completed">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6 9 17l-5-5"></path>
+                        </svg>
+                        {{#str}}completed, enrol_programs{{/str}}
+                    </span>
+                    {{/iscompleted}}
+                    {{#isinprogress}}
+                    <span class="completion-badge inprogress">
+                        {{progresspercent}}% {{#str}}complete, enrol_programs{{/str}}
+                    </span>
+                    {{/isinprogress}}
+                    {{#isnotstarted}}
+                    <span class="completion-badge notstarted">
+                        {{#str}}notstarted, enrol_programs{{/str}}
+                    </span>
+                    {{/isnotstarted}}
+
+                    {{#courseurl}}
+                    <a href="{{courseurl}}" class="course-link-btn">
+                        {{#iscompleted}}
+                        {{#str}}review, enrol_programs{{/str}}
+                        {{/iscompleted}}
+                        {{#isinprogress}}
+                        {{#str}}continue, enrol_programs{{/str}}
+                        {{/isinprogress}}
+                        {{#isnotstarted}}
+                        {{#str}}start, enrol_programs{{/str}}
+                        {{/isnotstarted}}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m9 18 6-6-6-6"></path>
+                        </svg>
+                    </a>
+                    {{/courseurl}}
+                </div>
+            </div>
+            {{/courses}}
+        </div>
+
+        {{^courses}}
+        <div class="courses-empty">
+            <p>{{#str}}nocourses, enrol_programs{{/str}}</p>
+        </div>
+        {{/courses}}
+    </div>
+
+    {{! Overview Tab }}
+    <div class="program-content" x-show="activeTab === 'overview'" x-cloak>
+        <div class="program-section">
+            <h2 class="section-title">{{#str}}description, enrol_programs{{/str}}</h2>
+            <div class="program-description">
+                {{{description}}}
+            </div>
+        </div>
+    </div>
+
+    {{! Details Tab }}
+    <div class="program-content" x-show="activeTab === 'details'" x-cloak>
+        <div class="program-section">
+            <h2 class="section-title">{{#str}}myallocation, enrol_programs{{/str}}</h2>
+            <div class="program-details-grid">
+                <div class="detail-item">
+                    <span class="detail-label">{{#str}}programstatus, enrol_programs{{/str}}</span>
+                    <span class="detail-value">{{{statushtml}}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">{{#str}}source, enrol_programs{{/str}}</span>
+                    <span class="detail-value">{{{sourceinfo}}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">{{#str}}allocationdate, enrol_programs{{/str}}</span>
+                    <span class="detail-value">{{allocationdate}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">{{#str}}programstart, enrol_programs{{/str}}</span>
+                    <span class="detail-value">{{programstart}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">{{#str}}programdue, enrol_programs{{/str}}</span>
+                    <span class="detail-value">{{programdue}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">{{#str}}programend, enrol_programs{{/str}}</span>
+                    <span class="detail-value">{{programend}}</span>
+                </div>
+                {{#timecompleted}}
+                <div class="detail-item highlight">
+                    <span class="detail-label">{{#str}}completiondate, enrol_programs{{/str}}</span>
+                    <span class="detail-value">{{timecompleted}}</span>
+                </div>
+                {{/timecompleted}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#js}}
+require(['jquery'], function($) {
+    console.log('My program detail page initialized');
+});
+{{/js}}

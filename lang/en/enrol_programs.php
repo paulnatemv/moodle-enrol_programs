@@ -554,3 +554,38 @@ $string['rb_type_program_customfields'] = 'Program custom fields';
 $string['rb_user'] = 'The user';
 $string['rb_viewprogram'] = 'View Program';
 $string['rb_visiblecohorts'] = 'Cohorts with visibility';
+
+// Catalogue UI strings.
+$string['enrolled'] = 'Enrolled';
+$string['prerequisites'] = 'Prerequisites';
+$string['courses'] = 'courses';
+$string['complete'] = 'complete';
+$string['noprogramsfound'] = 'Try adjusting your search or check back later for new programs.';
+
+// Program detail page strings.
+$string['overview'] = 'Overview';
+$string['programcourses'] = 'Courses';
+$string['programdetails'] = 'Program Details';
+$string['notstarted'] = 'Not started';
+$string['nocourses'] = 'No courses in this program.';
+$string['completed'] = 'Completed';
+$string['review'] = 'Review';
+$string['continue'] = 'Continue';
+$string['start'] = 'Start';
+$string['description'] = 'Description';
+$string['overallprogress'] = 'Overall Progress';
+$string['completedon'] = 'Completed on';
+$string['myallocation'] = 'My Enrollment';
+
+// My programs listing page strings.
+$string['myprogramsdesc'] = 'Track your progress and continue learning';
+$string['browsecatalogue'] = 'Browse Catalogue';
+$string['totalprograms'] = 'Total Programs';
+$string['completedprograms'] = 'Completed';
+$string['inprogressprograms'] = 'In Progress';
+$string['due'] = 'Due';
+$string['started'] = 'Started';
+$string['reviewprogram'] = 'Review Program';
+$string['continueprogram'] = 'Continue Learning';
+$string['noprogramsyet'] = 'No Programs Yet';
+$string['noprogramsyetdesc'] = 'You haven\'t enrolled in any programs yet. Browse our catalogue to get started.';

@@ -1,0 +1,193 @@
+{{!
+    @template enrol_programs/my_programs
+
+    Beautiful "My Programs" listing page with progress cards.
+
+    Context variables required for this template:
+    * programs - Array of enrolled program objects with completion data
+    * catalogueurl - URL to program catalogue
+    * hascatalogue - Whether catalogue link should be shown
+}}
+
+<div class="my-programs-page">
+    {{! Page Header }}
+    <div class="my-programs-header">
+        <div class="header-content">
+            <h1 class="page-title">{{#str}}myprograms, enrol_programs{{/str}}</h1>
+            <p class="page-subtitle">{{#str}}myprogramsdesc, enrol_programs{{/str}}</p>
+        </div>
+        {{#hascatalogue}}
+        <a href="{{catalogueurl}}" class="browse-catalogue-btn" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.625rem 1.25rem;font-size:0.9rem;font-weight:600;color:#6366f1 !important;background:#e0e7ff !important;border-radius:8px;text-decoration:none !important;transition:all 0.2s ease;" onmouseover="this.style.background='#6366f1';this.style.color='#ffffff';" onmouseout="this.style.background='#e0e7ff';this.style.color='#6366f1';">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            {{#str}}browsecatalogue, enrol_programs{{/str}}
+        </a>
+        {{/hascatalogue}}
+    </div>
+
+    {{! Stats Summary }}
+    {{#hasstats}}
+    <div class="my-programs-stats">
+        <div class="stat-card">
+            <div class="stat-icon total">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{totalprograms}}</span>
+                <span class="stat-label">{{#str}}totalprograms, enrol_programs{{/str}}</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon completed">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{completedprograms}}</span>
+                <span class="stat-label">{{#str}}completedprograms, enrol_programs{{/str}}</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon inprogress">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v4"></path>
+                    <path d="m16.2 7.8 2.9-2.9"></path>
+                    <path d="M18 12h4"></path>
+                    <path d="m16.2 16.2 2.9 2.9"></path>
+                    <path d="M12 18v4"></path>
+                    <path d="m4.9 19.1 2.9-2.9"></path>
+                    <path d="M2 12h4"></path>
+                    <path d="m4.9 4.9 2.9 2.9"></path>
+                </svg>
+            </div>
+            <div class="stat-info">
+                <span class="stat-value">{{inprogressprograms}}</span>
+                <span class="stat-label">{{#str}}inprogressprograms, enrol_programs{{/str}}</span>
+            </div>
+        </div>
+    </div>
+    {{/hasstats}}
+
+    {{! Programs Grid }}
+    <div class="my-programs-grid">
+        {{#programs}}
+        <div class="my-program-card {{statusclass}}">
+            <div class="card-header">
+                {{#imageurl}}
+                <img src="{{imageurl}}" alt="" class="program-image">
+                {{/imageurl}}
+                {{^imageurl}}
+                <div class="program-image-placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        <path d="m9 9.5 2 2 4-4"></path>
+                    </svg>
+                </div>
+                {{/imageurl}}
+                <div class="status-badge {{completionclass}}">
+                    {{#iscompleted}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 6 9 17l-5-5"></path>
+                    </svg>
+                    {{#str}}completed, enrol_programs{{/str}}
+                    {{/iscompleted}}
+                    {{#isinprogress}}
+                    {{progresspercent}}% {{#str}}complete, enrol_programs{{/str}}
+                    {{/isinprogress}}
+                    {{#isnotstarted}}
+                    {{#str}}notstarted, enrol_programs{{/str}}
+                    {{/isnotstarted}}
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="program-name">
+                    <a href="{{detailurl}}">{{fullname}}</a>
+                </h3>
+
+                {{#tags}}
+                <div class="program-tags">
+                    {{#taglist}}
+                    <span class="tag">{{name}}</span>
+                    {{/taglist}}
+                </div>
+                {{/tags}}
+
+                <div class="program-progress">
+                    <div class="mp-progress-info">
+                        <span class="mp-progress-label">{{completedcourses}}/{{totalcourses}} {{#str}}courses, enrol_programs{{/str}}</span>
+                        <span class="mp-progress-percent">{{progresspercent}}%</span>
+                    </div>
+                    <div class="mp-progress-bar">
+                        <div class="mp-progress-fill" style="width: {{progresspercent}}%"></div>
+                    </div>
+                </div>
+
+                <div class="program-meta">
+                    {{#hasdue}}
+                    <div class="meta-item {{#isoverdue}}overdue{{/isoverdue}}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>{{#str}}due, enrol_programs{{/str}}: {{duedate}}</span>
+                    </div>
+                    {{/hasdue}}
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                            <line x1="16" x2="16" y1="2" y2="6"></line>
+                            <line x1="8" x2="8" y1="2" y2="6"></line>
+                            <line x1="3" x2="21" y1="10" y2="10"></line>
+                        </svg>
+                        <span>{{#str}}started, enrol_programs{{/str}}: {{startdate}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                {{#iscompleted}}
+                <a href="{{detailurl}}" class="view-program-btn" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;padding:0.75rem 1rem;font-size:0.9rem;font-weight:600;color:#fff !important;background:#10b981 !important;border-radius:8px;text-decoration:none !important;box-shadow:0 2px 4px rgba(16,185,129,0.3);">
+                    {{#str}}reviewprogram, enrol_programs{{/str}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </a>
+                {{/iscompleted}}
+                {{^iscompleted}}
+                <a href="{{detailurl}}" class="view-program-btn" style="display:flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;padding:0.75rem 1rem;font-size:0.9rem;font-weight:600;color:#fff !important;background:#6366f1 !important;border-radius:8px;text-decoration:none !important;box-shadow:0 2px 4px rgba(99,102,241,0.3);">
+                    {{#str}}continueprogram, enrol_programs{{/str}}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </a>
+                {{/iscompleted}}
+            </div>
+        </div>
+        {{/programs}}
+    </div>
+
+    {{! Empty State }}
+    {{^programs}}
+    <div class="my-programs-empty">
+        <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+            </svg>
+        </div>
+        <h3>{{#str}}noprogramsyet, enrol_programs{{/str}}</h3>
+        <p>{{#str}}noprogramsyetdesc, enrol_programs{{/str}}</p>
+        {{#hascatalogue}}
+        <a href="{{catalogueurl}}" class="browse-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.75rem 1.5rem;font-size:0.95rem;font-weight:600;color:#fff !important;background:#6366f1 !important;border-radius:8px;text-decoration:none !important;box-shadow:0 2px 4px rgba(99,102,241,0.3);" onmouseover="this.style.background='#4f46e5';" onmouseout="this.style.background='#6366f1';">
+            {{#str}}browsecatalogue, enrol_programs{{/str}}
+        </a>
+        {{/hascatalogue}}
+    </div>
+    {{/programs}}
+</div>
