@@ -1761,3 +1761,378 @@
         text-align: left;
     }
 }
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+/* Dark mode CSS Variables for Programs Catalogue */
+[data-bs-theme="dark"] .programs-catalogue,
+body.theme-dark .programs-catalogue,
+.dark-mode .programs-catalogue {
+    --pc-primary: #818cf8;
+    --pc-primary-dark: #6366f1;
+    --pc-primary-light: #312e81;
+    --pc-success: #34d399;
+    --pc-warning: #fbbf24;
+    --pc-gray-50: #1f2937;
+    --pc-gray-100: #374151;
+    --pc-gray-200: #4b5563;
+    --pc-gray-300: #6b7280;
+    --pc-gray-400: #9ca3af;
+    --pc-gray-500: #d1d5db;
+    --pc-gray-600: #e5e7eb;
+    --pc-gray-700: #f3f4f6;
+    --pc-gray-800: #f9fafb;
+    --pc-gray-900: #ffffff;
+    --pc-shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --pc-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.2);
+    --pc-shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -2px rgba(0,0,0,0.2);
+}
+
+/* Dark mode CSS Variables for Program Detail */
+[data-bs-theme="dark"] .program-detail,
+body.theme-dark .program-detail,
+.dark-mode .program-detail,
+[data-bs-theme="dark"] .my-program-detail,
+body.theme-dark .my-program-detail,
+.dark-mode .my-program-detail {
+    --pd-primary: #818cf8;
+    --pd-primary-light: #312e81;
+    --pd-success: #34d399;
+    --pd-success-light: #064e3b;
+    --pd-warning: #fbbf24;
+    --pd-warning-light: #78350f;
+    --pd-gray-50: #1f2937;
+    --pd-gray-100: #374151;
+    --pd-gray-200: #4b5563;
+    --pd-gray-300: #6b7280;
+    --pd-gray-400: #9ca3af;
+    --pd-gray-500: #d1d5db;
+    --pd-gray-600: #e5e7eb;
+    --pd-gray-700: #f3f4f6;
+    --pd-gray-800: #f9fafb;
+    --pd-gray-900: #ffffff;
+}
+
+/* Dark mode - Catalogue backgrounds */
+[data-bs-theme="dark"] .programs-catalogue,
+body.theme-dark .programs-catalogue,
+.dark-mode .programs-catalogue {
+    background: #111827;
+}
+
+[data-bs-theme="dark"] .catalogue-header,
+body.theme-dark .catalogue-header,
+.dark-mode .catalogue-header {
+    border-bottom-color: var(--pc-gray-200);
+}
+
+[data-bs-theme="dark"] .search-input,
+body.theme-dark .search-input,
+.dark-mode .search-input {
+    background: var(--pc-gray-100);
+    border-color: var(--pc-gray-200);
+    color: var(--pc-gray-900);
+}
+
+[data-bs-theme="dark"] .search-input::placeholder,
+body.theme-dark .search-input::placeholder,
+.dark-mode .search-input::placeholder {
+    color: var(--pc-gray-400);
+}
+
+[data-bs-theme="dark"] .view-toggle,
+body.theme-dark .view-toggle,
+.dark-mode .view-toggle {
+    background: var(--pc-gray-100);
+}
+
+[data-bs-theme="dark"] .view-btn.active,
+body.theme-dark .view-btn.active,
+.dark-mode .view-btn.active {
+    background: var(--pc-gray-200);
+}
+
+/* Dark mode - Program cards */
+[data-bs-theme="dark"] .program-card,
+body.theme-dark .program-card,
+.dark-mode .program-card {
+    background: #1f2937;
+    border: 1px solid var(--pc-gray-200);
+}
+
+[data-bs-theme="dark"] .program-card-image,
+body.theme-dark .program-card-image,
+.dark-mode .program-card-image {
+    background: linear-gradient(135deg, var(--pc-primary-light) 0%, var(--pc-gray-100) 100%);
+}
+
+[data-bs-theme="dark"] .program-card-progress,
+body.theme-dark .program-card-progress,
+.dark-mode .program-card-progress {
+    border-top-color: var(--pc-gray-200);
+}
+
+/* Dark mode - Program list view */
+[data-bs-theme="dark"] .program-list-item,
+body.theme-dark .program-list-item,
+.dark-mode .program-list-item {
+    background: #1f2937;
+    border: 1px solid var(--pc-gray-200);
+}
+
+[data-bs-theme="dark"] .program-list-image,
+body.theme-dark .program-list-image,
+.dark-mode .program-list-image {
+    background: linear-gradient(135deg, var(--pc-primary-light) 0%, var(--pc-gray-100) 100%);
+}
+
+/* Dark mode - Pagination */
+[data-bs-theme="dark"] .catalogue-pagination .page-item .page-link,
+body.theme-dark .catalogue-pagination .page-item .page-link,
+.dark-mode .catalogue-pagination .page-item .page-link {
+    background: var(--pc-gray-100);
+    border-color: var(--pc-gray-200);
+    color: var(--pc-gray-700);
+}
+
+[data-bs-theme="dark"] .catalogue-pagination .page-item .page-link:hover,
+body.theme-dark .catalogue-pagination .page-item .page-link:hover,
+.dark-mode .catalogue-pagination .page-item .page-link:hover {
+    background: var(--pc-gray-200);
+}
+
+/* Dark mode - Empty state */
+[data-bs-theme="dark"] .catalogue-empty,
+body.theme-dark .catalogue-empty,
+.dark-mode .catalogue-empty {
+    background: #1f2937;
+}
+
+/* Dark mode - Program Detail Page */
+[data-bs-theme="dark"] .program-header,
+body.theme-dark .program-header,
+.dark-mode .program-header {
+    background: linear-gradient(135deg, var(--pd-primary-light) 0%, #1f2937 100%);
+}
+
+[data-bs-theme="dark"] .program-header-image,
+body.theme-dark .program-header-image,
+.dark-mode .program-header-image {
+    background: #374151;
+}
+
+[data-bs-theme="dark"] .program-header-placeholder,
+body.theme-dark .program-header-placeholder,
+.dark-mode .program-header-placeholder {
+    background: linear-gradient(135deg, var(--pd-gray-100) 0%, #1f2937 100%);
+}
+
+[data-bs-theme="dark"] .program-tabs,
+body.theme-dark .program-tabs,
+.dark-mode .program-tabs {
+    border-bottom-color: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .tab-badge,
+body.theme-dark .tab-badge,
+.dark-mode .tab-badge {
+    background: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .program-tab.active .tab-badge,
+body.theme-dark .program-tab.active .tab-badge,
+.dark-mode .program-tab.active .tab-badge {
+    background: var(--pd-primary-light);
+}
+
+[data-bs-theme="dark"] .detail-item,
+body.theme-dark .detail-item,
+.dark-mode .detail-item {
+    background: var(--pd-gray-100);
+}
+
+/* Dark mode - Course items */
+[data-bs-theme="dark"] .course-item,
+body.theme-dark .course-item,
+.dark-mode .course-item {
+    background: #1f2937;
+    border-color: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .course-item:hover,
+body.theme-dark .course-item:hover,
+.dark-mode .course-item:hover {
+    border-color: var(--pd-gray-300);
+}
+
+[data-bs-theme="dark"] .course-item.completed,
+body.theme-dark .course-item.completed,
+.dark-mode .course-item.completed {
+    background: linear-gradient(to right, var(--pd-success-light) 0%, #1f2937 100%);
+    border-color: rgba(52, 211, 153, 0.3);
+}
+
+[data-bs-theme="dark"] .course-item.inprogress,
+body.theme-dark .course-item.inprogress,
+.dark-mode .course-item.inprogress {
+    background: linear-gradient(to right, var(--pd-warning-light) 0%, #1f2937 100%);
+    border-color: rgba(251, 191, 36, 0.3);
+}
+
+[data-bs-theme="dark"] .status-icon.notstarted,
+body.theme-dark .status-icon.notstarted,
+.dark-mode .status-icon.notstarted {
+    background: var(--pd-gray-100);
+    border-color: var(--pd-gray-300);
+}
+
+[data-bs-theme="dark"] .completion-badge.notstarted,
+body.theme-dark .completion-badge.notstarted,
+.dark-mode .completion-badge.notstarted {
+    background: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .course-link-btn,
+body.theme-dark .course-link-btn,
+.dark-mode .course-link-btn {
+    background: var(--pd-primary-light);
+}
+
+[data-bs-theme="dark"] .courses-empty,
+body.theme-dark .courses-empty,
+.dark-mode .courses-empty {
+    background: #1f2937;
+}
+
+/* Dark mode - My Programs Page */
+[data-bs-theme="dark"] .my-programs-page,
+body.theme-dark .my-programs-page,
+.dark-mode .my-programs-page {
+    background: #111827;
+}
+
+[data-bs-theme="dark"] .my-programs-header,
+body.theme-dark .my-programs-header,
+.dark-mode .my-programs-header {
+    border-bottom-color: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .browse-catalogue-btn,
+body.theme-dark .browse-catalogue-btn,
+.dark-mode .browse-catalogue-btn {
+    background: var(--pd-primary-light);
+}
+
+[data-bs-theme="dark"] .stat-card,
+body.theme-dark .stat-card,
+.dark-mode .stat-card {
+    background: #1f2937;
+    border-color: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .stat-icon.total,
+body.theme-dark .stat-icon.total,
+.dark-mode .stat-icon.total {
+    background: var(--pd-primary-light);
+}
+
+[data-bs-theme="dark"] .stat-icon.completed,
+body.theme-dark .stat-icon.completed,
+.dark-mode .stat-icon.completed {
+    background: var(--pd-success-light);
+}
+
+[data-bs-theme="dark"] .stat-icon.inprogress,
+body.theme-dark .stat-icon.inprogress,
+.dark-mode .stat-icon.inprogress {
+    background: var(--pd-warning-light);
+}
+
+/* Dark mode - My Program Cards */
+[data-bs-theme="dark"] .my-program-card,
+body.theme-dark .my-program-card,
+.dark-mode .my-program-card {
+    background: #1f2937;
+    border-color: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .my-program-card .card-header,
+body.theme-dark .my-program-card .card-header,
+.dark-mode .my-program-card .card-header {
+    background: linear-gradient(135deg, var(--pd-primary-light) 0%, #374151 100%);
+}
+
+[data-bs-theme="dark"] .my-program-card .program-tags .tag,
+body.theme-dark .my-program-card .program-tags .tag,
+.dark-mode .my-program-card .program-tags .tag {
+    background: var(--pd-primary-light);
+}
+
+[data-bs-theme="dark"] .my-program-card .card-footer,
+body.theme-dark .my-program-card .card-footer,
+.dark-mode .my-program-card .card-footer {
+    background: #1f2937;
+    border-top-color: var(--pd-gray-200);
+}
+
+/* Dark mode - Empty state for My Programs */
+[data-bs-theme="dark"] .my-programs-empty,
+body.theme-dark .my-programs-empty,
+.dark-mode .my-programs-empty {
+    background: #1f2937;
+    border-color: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .my-programs-empty .empty-icon,
+body.theme-dark .my-programs-empty .empty-icon,
+.dark-mode .my-programs-empty .empty-icon {
+    background: var(--pd-gray-100);
+}
+
+/* Dark mode - Overall progress bar */
+[data-bs-theme="dark"] .overall-progress-bar,
+body.theme-dark .overall-progress-bar,
+.dark-mode .overall-progress-bar {
+    background: #1f2937;
+}
+
+/* Dark mode - Program box listing */
+[data-bs-theme="dark"] .programs .programbox.even,
+body.theme-dark .programs .programbox.even,
+.dark-mode .programs .programbox.even {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+[data-bs-theme="dark"] #program_content a.movehere,
+body.theme-dark #program_content a.movehere,
+.dark-mode #program_content a.movehere {
+    border-color: #6b7280;
+}
+
+/* Dark mode - Completion badges adjustments */
+[data-bs-theme="dark"] .completion-badge.completed,
+body.theme-dark .completion-badge.completed,
+.dark-mode .completion-badge.completed {
+    background: var(--pd-success-light);
+    color: var(--pd-success);
+}
+
+[data-bs-theme="dark"] .completion-badge.inprogress,
+body.theme-dark .completion-badge.inprogress,
+.dark-mode .completion-badge.inprogress {
+    background: var(--pd-warning-light);
+    color: var(--pd-warning);
+}
+
+/* Dark mode - Details grid highlight */
+[data-bs-theme="dark"] .program-details-grid .detail-item.highlight,
+body.theme-dark .program-details-grid .detail-item.highlight,
+.dark-mode .program-details-grid .detail-item.highlight {
+    background: var(--pd-success-light);
+}
+
+/* ============================================
+   END DARK MODE SUPPORT
+   ============================================ */

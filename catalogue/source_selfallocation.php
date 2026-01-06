@@ -48,6 +48,24 @@ if (!enrol_is_enabled('programs')) {
     redirect(new moodle_url('/'));
 }
 
+// Check for active subscription if paywall plugin is installed.
+if (file_exists($CFG->dirroot . '/local/paywall/classes/subscription_helper.php')) {
+    require_once($CFG->dirroot . '/local/paywall/classes/subscription_helper.php');
+
+    // Only enforce subscription check if paywall is configured with pricing.
+    if (\local_paywall\subscription_helper::is_paywall_enabled()) {
+        // Check if user has any active subscription.
+        if (!\local_paywall\subscription_helper::has_any_subscription($USER->id)) {
+            // Store the intended destination for after subscription.
+            $SESSION->paywall_return_url = $PAGE->url->out(false);
+
+            // Redirect to subscription page.
+            $subscriptionurl = \local_paywall\subscription_helper::get_subscription_url();
+            redirect($subscriptionurl, get_string('subscriptionrequired', 'local_paywall'), null, \core\output\notification::NOTIFY_WARNING);
+        }
+    }
+}
+
 $source = $DB->get_record('enrol_programs_sources', ['id' => $sourceid, 'type' => 'selfallocation'], '*', MUST_EXIST);
 $program = $DB->get_record('enrol_programs_programs', ['id' => $source->programid], '*', MUST_EXIST);
 $programcontext = context::instance_by_id($program->contextid);

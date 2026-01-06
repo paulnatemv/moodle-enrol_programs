@@ -167,7 +167,7 @@ final class selfallocation extends base {
      * @return string[]
      */
     public static function get_catalogue_actions(\stdClass $program, \stdClass $source): array {
-        global $USER, $DB, $PAGE;
+        global $USER, $DB, $PAGE, $CFG;
 
         $failurereason = null;
         if (!self::can_user_request($program, $source, (int)$USER->id, $failurereason)) {
@@ -175,6 +175,27 @@ final class selfallocation extends base {
                 return [$failurereason];
             } else {
                 return [];
+            }
+        }
+
+        // Check for subscription requirement if paywall plugin is installed.
+        if (file_exists($CFG->dirroot . '/local/paywall/classes/subscription_helper.php')) {
+            require_once($CFG->dirroot . '/local/paywall/classes/subscription_helper.php');
+
+            // Only check if paywall is configured with pricing.
+            if (\local_paywall\subscription_helper::is_paywall_enabled()) {
+                // Check if user has any active subscription.
+                if (!\local_paywall\subscription_helper::has_any_subscription($USER->id)) {
+                    // Show subscribe button instead of sign up button.
+                    $subscriptionurl = \local_paywall\subscription_helper::get_subscription_url();
+                    $subscribebutton = \html_writer::link(
+                        $subscriptionurl,
+                        get_string('subtitle', 'local_paywall'),
+                        ['class' => 'btn btn-primary']
+                    );
+                    $message = '<em><strong>' . get_string('noactivesubscription', 'local_paywall') . '</strong></em>';
+                    return [$message, $subscribebutton];
+                }
             }
         }
 
