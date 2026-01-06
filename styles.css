@@ -1294,6 +1294,26 @@
    ============================================ */
 
 .my-programs-page {
+    /* CSS Variables for My Programs page */
+    --pd-primary: #4f46e5;
+    --pd-primary-dark: #4338ca;
+    --pd-primary-light: #eef2ff;
+    --pd-success: #10b981;
+    --pd-success-dark: #059669;
+    --pd-success-light: #d1fae5;
+    --pd-warning: #f59e0b;
+    --pd-warning-light: #fef3c7;
+    --pd-gray-50: #f9fafb;
+    --pd-gray-100: #f3f4f6;
+    --pd-gray-200: #e5e7eb;
+    --pd-gray-300: #d1d5db;
+    --pd-gray-400: #9ca3af;
+    --pd-gray-500: #6b7280;
+    --pd-gray-600: #4b5563;
+    --pd-gray-700: #374151;
+    --pd-gray-800: #1f2937;
+    --pd-gray-900: #111827;
+
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
@@ -2010,6 +2030,26 @@ body.theme-dark .courses-empty,
 [data-bs-theme="dark"] .my-programs-page,
 body.theme-dark .my-programs-page,
 .dark-mode .my-programs-page {
+    /* Dark mode CSS Variables */
+    --pd-primary: #818cf8;
+    --pd-primary-dark: #6366f1;
+    --pd-primary-light: #312e81;
+    --pd-success: #34d399;
+    --pd-success-dark: #10b981;
+    --pd-success-light: #064e3b;
+    --pd-warning: #fbbf24;
+    --pd-warning-light: #78350f;
+    --pd-gray-50: #1f2937;
+    --pd-gray-100: #374151;
+    --pd-gray-200: #4b5563;
+    --pd-gray-300: #6b7280;
+    --pd-gray-400: #9ca3af;
+    --pd-gray-500: #d1d5db;
+    --pd-gray-600: #e5e7eb;
+    --pd-gray-700: #f3f4f6;
+    --pd-gray-800: #f9fafb;
+    --pd-gray-900: #ffffff;
+
     background: #111827;
 }
 
@@ -2019,10 +2059,19 @@ body.theme-dark .my-programs-header,
     border-bottom-color: var(--pd-gray-200);
 }
 
+/* Dark mode - Browse Catalogue Button */
 [data-bs-theme="dark"] .browse-catalogue-btn,
 body.theme-dark .browse-catalogue-btn,
 .dark-mode .browse-catalogue-btn {
     background: var(--pd-primary-light);
+    color: var(--pd-primary);
+}
+
+[data-bs-theme="dark"] .browse-catalogue-btn:hover,
+body.theme-dark .browse-catalogue-btn:hover,
+.dark-mode .browse-catalogue-btn:hover {
+    background: var(--pd-primary);
+    color: #ffffff;
 }
 
 [data-bs-theme="dark"] .stat-card,
@@ -2089,6 +2138,124 @@ body.theme-dark .my-programs-empty,
 body.theme-dark .my-programs-empty .empty-icon,
 .dark-mode .my-programs-empty .empty-icon {
     background: var(--pd-gray-100);
+}
+
+/* Dark mode - View Program Button */
+[data-bs-theme="dark"] .my-program-card .view-program-btn,
+body.theme-dark .my-program-card .view-program-btn,
+.dark-mode .my-program-card .view-program-btn {
+    background: var(--pd-primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(129, 140, 248, 0.3);
+}
+
+[data-bs-theme="dark"] .my-program-card .view-program-btn:hover,
+body.theme-dark .my-program-card .view-program-btn:hover,
+.dark-mode .my-program-card .view-program-btn:hover {
+    background: var(--pd-primary-dark) !important;
+    box-shadow: 0 4px 8px rgba(129, 140, 248, 0.4);
+}
+
+[data-bs-theme="dark"] .my-program-card.completed .view-program-btn,
+body.theme-dark .my-program-card.completed .view-program-btn,
+.dark-mode .my-program-card.completed .view-program-btn {
+    background: var(--pd-success) !important;
+    box-shadow: 0 2px 4px rgba(52, 211, 153, 0.3);
+}
+
+[data-bs-theme="dark"] .my-program-card.completed .view-program-btn:hover,
+body.theme-dark .my-program-card.completed .view-program-btn:hover,
+.dark-mode .my-program-card.completed .view-program-btn:hover {
+    background: var(--pd-success-dark) !important;
+    box-shadow: 0 4px 8px rgba(52, 211, 153, 0.4);
+}
+
+/* Dark mode - Browse Button (Empty State) */
+[data-bs-theme="dark"] .my-programs-empty .browse-btn,
+body.theme-dark .my-programs-empty .browse-btn,
+.dark-mode .my-programs-empty .browse-btn {
+    background: var(--pd-primary);
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .my-programs-empty .browse-btn:hover,
+body.theme-dark .my-programs-empty .browse-btn:hover,
+.dark-mode .my-programs-empty .browse-btn:hover {
+    background: var(--pd-primary-dark);
+}
+
+/* Dark mode - Status Badges */
+[data-bs-theme="dark"] .my-program-card .status-badge,
+body.theme-dark .my-program-card .status-badge,
+.dark-mode .my-program-card .status-badge {
+    color: #ffffff;
+}
+
+[data-bs-theme="dark"] .my-program-card .status-badge.completed,
+body.theme-dark .my-program-card .status-badge.completed,
+.dark-mode .my-program-card .status-badge.completed {
+    background: var(--pd-success);
+}
+
+[data-bs-theme="dark"] .my-program-card .status-badge.inprogress,
+body.theme-dark .my-program-card .status-badge.inprogress,
+.dark-mode .my-program-card .status-badge.inprogress {
+    background: var(--pd-warning);
+    color: #1f2937;
+}
+
+[data-bs-theme="dark"] .my-program-card .status-badge.notstarted,
+body.theme-dark .my-program-card .status-badge.notstarted,
+.dark-mode .my-program-card .status-badge.notstarted {
+    background: var(--pd-gray-200);
+    color: var(--pd-gray-700);
+}
+
+/* Dark mode - Progress Bar */
+[data-bs-theme="dark"] .my-program-card .mp-progress-bar,
+body.theme-dark .my-program-card .mp-progress-bar,
+.dark-mode .my-program-card .mp-progress-bar {
+    background: var(--pd-gray-200);
+}
+
+[data-bs-theme="dark"] .my-program-card .mp-progress-fill,
+body.theme-dark .my-program-card .mp-progress-fill,
+.dark-mode .my-program-card .mp-progress-fill {
+    background: linear-gradient(90deg, var(--pd-primary) 0%, var(--pd-success) 100%);
+}
+
+/* Dark mode - Program Meta Info */
+[data-bs-theme="dark"] .my-program-card .program-meta .meta-item,
+body.theme-dark .my-program-card .program-meta .meta-item,
+.dark-mode .my-program-card .program-meta .meta-item {
+    color: var(--pd-gray-500);
+}
+
+[data-bs-theme="dark"] .my-program-card .program-meta .meta-item.overdue,
+body.theme-dark .my-program-card .program-meta .meta-item.overdue,
+.dark-mode .my-program-card .program-meta .meta-item.overdue {
+    color: #f87171;
+}
+
+/* Dark mode - Program Name Link */
+[data-bs-theme="dark"] .my-program-card .program-name a,
+body.theme-dark .my-program-card .program-name a,
+.dark-mode .my-program-card .program-name a {
+    color: var(--pd-gray-900);
+}
+
+[data-bs-theme="dark"] .my-program-card .program-name a:hover,
+body.theme-dark .my-program-card .program-name a:hover,
+.dark-mode .my-program-card .program-name a:hover {
+    color: var(--pd-primary);
+}
+
+/* Dark mode - Image Placeholder */
+[data-bs-theme="dark"] .my-program-card .program-image-placeholder,
+body.theme-dark .my-program-card .program-image-placeholder,
+.dark-mode .my-program-card .program-image-placeholder {
+    background: linear-gradient(135deg, var(--pd-primary-light) 0%, var(--pd-gray-100) 100%);
+    color: var(--pd-gray-400);
 }
 
 /* Dark mode - Overall progress bar */
