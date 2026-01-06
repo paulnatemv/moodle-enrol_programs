@@ -1407,7 +1407,7 @@
 
 .stat-icon.inprogress {
     background: var(--pd-warning-light);
-    color: #d97706;
+    color: var(--pd-warning);
 }
 
 .stat-info {
@@ -2012,6 +2012,7 @@ body.theme-dark .status-icon.notstarted,
 body.theme-dark .completion-badge.notstarted,
 .dark-mode .completion-badge.notstarted {
     background: var(--pd-gray-200);
+    color: var(--pd-gray-700);
 }
 
 [data-bs-theme="dark"] .course-link-btn,
@@ -2097,6 +2098,7 @@ body.theme-dark .stat-icon.completed,
 body.theme-dark .stat-icon.inprogress,
 .dark-mode .stat-icon.inprogress {
     background: var(--pd-warning-light);
+    color: var(--pd-warning);
 }
 
 /* Dark mode - My Program Cards */
